@@ -1,0 +1,7 @@
+instalação da graphviz no linux:
+1) baixar source do repositório - https://graphviz.org/download/ | https://graphviz.org/download/source/
+2) extrair o arquivo
+3) executar os comandos
+- ./configure
+- make
+- make install (pode ser necessário realizar como sudo)
