@@ -1,4 +1,4 @@
-import Entity from "@seedwork/domain/entity/entity";
+import Entity from "../../../@seedwork/domain/entity/entity";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 export type CategoryProperties = {
@@ -6,6 +6,11 @@ export type CategoryProperties = {
   description?: string;
   is_active?: boolean;
   created_at?: Date;
+};
+
+export type CategoryUpdateProperties = {
+  name?: string;
+  description?: string;
 };
 
 export class Category extends Entity<CategoryProperties> {
@@ -39,5 +44,18 @@ export class Category extends Entity<CategoryProperties> {
 
   get created_at() {
     return this.props.created_at;
+  }
+
+  update(propsUpdate: CategoryUpdateProperties) {
+    this.props.name = propsUpdate.name || this.props.name;
+    this.props.description = propsUpdate.description || this.props.description;
+  }
+
+  activate() {
+    this.props.is_active = true;
+  }
+
+  deactivate() {
+    this.props.is_active = false;
   }
 }

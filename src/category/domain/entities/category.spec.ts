@@ -1,4 +1,8 @@
-import { Category, CategoryProperties } from "./category";
+import {
+  Category,
+  CategoryProperties,
+  CategoryUpdateProperties,
+} from "./category";
 import { omit } from "lodash";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
@@ -73,7 +77,7 @@ describe("Category Unit Tests", () => {
     data.forEach((i) => {
       const category = new Category(i.props, i.id as any);
       expect(category.id).not.toBeNull();
-      expect(category.id).toBeInstanceOf(UniqueEntityId);
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
     });
   });
 
@@ -139,5 +143,39 @@ describe("Category Unit Tests", () => {
       created_at,
     });
     expect(category.created_at).toBe(created_at);
+  });
+
+  it("should update name and description", () => {
+    const category = new Category({
+      name: "Movie",
+    });
+
+    category.update({ description: "movie description" });
+    expect(category.name).toBe("Movie");
+    expect(category.description).toBe("movie description");
+
+    category.update({ name: "New Movie" });
+    expect(category.name).toBe("New Movie");
+    expect(category.description).toBe("movie description");
+  });
+
+  it("should be activated", () => {
+    const category = new Category({
+      name: "Movie",
+    });
+
+    category.activate();
+
+    expect(category.is_active).toBeTruthy();
+  });
+
+  it("should be deactivated", () => {
+    const category = new Category({
+      name: "Movie",
+    });
+
+    category.deactivate();
+
+    expect(category.is_active).toBeFalsy();
   });
 });
